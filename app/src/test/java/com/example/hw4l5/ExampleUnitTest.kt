@@ -8,7 +8,7 @@ class ExampleUnitTest {
     @Test
     fun example() {
 
-        val productsCart: Cart = Cart(mutableListOf(
+        val productsCart = Cart(mutableListOf(
             Product(price = 123.5, salePercent = 30)
         ))
 
@@ -23,7 +23,9 @@ class ExampleUnitTest {
 
         val totalCost = productsCart.calcTotalCost()
         pricePrinter.print(totalCost)
+
     }
+
 }
 
 class Product(
@@ -51,11 +53,7 @@ class Cart(private val products: MutableList<Product>) {
      */
     fun add(item: Product) = products.add(item)
 
-    fun calcTotalCost(): Double {
-        var sum: Double = 0.0
-        products.forEach { sum += it.calcDiscountPrice() }
-        return sum
-    }
+    fun calcTotalCost(): Double = products.sumByDouble { it.calcDiscountPrice() }
 
 }
 
